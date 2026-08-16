@@ -91,3 +91,4 @@ export const mockNotifications: Notification[] = [
     fromUser: mockUsers[5],
   },
 ];
+

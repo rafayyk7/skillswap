@@ -68,3 +68,4 @@ export const mockReviews: Review[] = [
     skill: skills[0],
   },
 ];
+

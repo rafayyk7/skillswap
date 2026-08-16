@@ -125,3 +125,4 @@ export const progressService = {
     return mockLearningEntries;
   },
 };
+

@@ -185,3 +185,4 @@ export const currentUser: User = {
   joinedDate: "2024-01-10",
   isOnline: true,
 };
+

@@ -46,3 +46,4 @@ export const skills: Skill[] = [
   { id: "s19", name: "Writing", categoryId: "writing", categoryName: "Writing", level: "advanced", yearsOfExperience: 7, description: "Content writing, copywriting, and creative writing", teacherCount: 221 },
   { id: "s20", name: "Digital Marketing", categoryId: "marketing", categoryName: "Digital Marketing", level: "advanced", yearsOfExperience: 5, description: "Social media, email marketing, and growth strategies", teacherCount: 243 },
 ];
+

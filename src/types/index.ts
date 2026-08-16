@@ -230,3 +230,4 @@ export interface LearningEntry {
   lastSessionDate: string;
   progress: number;
 }
+

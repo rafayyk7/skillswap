@@ -63,3 +63,4 @@ export default function MatchRing({ percentage, size = "md", className }: MatchR
     </div>
   );
 }
+

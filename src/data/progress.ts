@@ -44,3 +44,4 @@ export const mockLearningEntries: LearningEntry[] = [
     progress: 15,
   },
 ];
+

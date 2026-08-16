@@ -43,3 +43,4 @@ export function SkeletonText({ lines = 3 }: SkeletonProps) {
     </div>
   );
 }
+

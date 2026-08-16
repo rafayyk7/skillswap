@@ -174,3 +174,4 @@ function Zap({ size, className }: { size: number; className?: string }) {
     </svg>
   );
 }
+
