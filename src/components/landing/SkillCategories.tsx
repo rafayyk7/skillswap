@@ -3,7 +3,59 @@
 import Link from "next/link";
 import { skillCategories } from "@/data/skills";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Monitor,
+  Smartphone,
+  Palette,
+  PenTool,
+  Film,
+  Megaphone,
+  Search,
+  UtensilsCrossed,
+  Camera,
+  Mic,
+  Globe,
+  Music,
+  Dumbbell,
+  BrainCircuit,
+  ShieldCheck,
+  BarChart3,
+  Briefcase,
+  DollarSign,
+  PenLine,
+  Code2,
+  Sprout,
+} from "lucide-react";
+import type { ReactNode } from "react";
+
+const categoryIcons: Record<string, ReactNode> = {
+  "web-dev": <Monitor size={18} />,
+  "mobile": <Smartphone size={18} />,
+  "design": <Palette size={18} />,
+  "uiux": <PenTool size={18} />,
+  "video": <Film size={18} />,
+  "marketing": <Megaphone size={18} />,
+  "seo": <Search size={18} />,
+  "cooking": <UtensilsCrossed size={18} />,
+  "photography": <Camera size={18} />,
+  "speaking": <Mic size={18} />,
+  "languages": <Globe size={18} />,
+  "music": <Music size={18} />,
+  "fitness": <Dumbbell size={18} />,
+  "ai": <BrainCircuit size={18} />,
+  "cybersec": <ShieldCheck size={18} />,
+  "data": <BarChart3 size={18} />,
+  "business": <Briefcase size={18} />,
+  "finance": <DollarSign size={18} />,
+  "writing": <PenLine size={18} />,
+  "programming": <Code2 size={18} />,
+  "personal": <Sprout size={18} />,
+};
+
+export function getCategoryIcon(id: string): ReactNode {
+  return categoryIcons[id] ?? <Monitor size={18} />;
+}
 
 export default function SkillCategories() {
   return (
@@ -44,11 +96,11 @@ export default function SkillCategories() {
             >
               <div
                 className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center text-xl",
+                  "w-10 h-10 rounded-xl flex items-center justify-center text-white",
                   `bg-gradient-to-br ${cat.color} opacity-90`
                 )}
               >
-                {cat.icon}
+                {getCategoryIcon(cat.id)}
               </div>
               <div>
                 <p className="text-xs font-semibold text-slate-200 leading-snug group-hover:text-white transition-colors">

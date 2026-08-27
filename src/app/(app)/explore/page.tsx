@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import Avatar from "@/components/ui/Avatar";
 import { cn } from "@/lib/utils";
+import { getCategoryIcon } from "@/components/landing/SkillCategories";
 
 export default function ExplorePage() {
   const [search, setSearch] = useState("");
@@ -82,13 +83,13 @@ export default function ExplorePage() {
                     key={cat.id}
                     onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
                     className={cn(
-                      "px-3 py-1.5 rounded-xl text-xs font-medium border transition-all",
+                      "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all",
                       selectedCategory === cat.id
                         ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
                         : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
                     )}
                   >
-                    {cat.icon} {cat.name}
+                    {getCategoryIcon(cat.id)} {cat.name}
                   </button>
                 ))}
               </div>
@@ -128,21 +129,21 @@ export default function ExplorePage() {
           )}
         >
           All Categories
-        </button>
-        {skillCategories.slice(0, 10).map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
-            className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium border whitespace-nowrap transition-all shrink-0",
-              selectedCategory === cat.id
-                ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
-                : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
-            )}
-          >
-            {cat.icon} {cat.name}
-          </button>
-        ))}
+        </button>            {skillCategories.slice(0, 10).map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
+                className={cn(
+                  "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border whitespace-nowrap transition-all shrink-0",
+                  selectedCategory === cat.id
+                    ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
+                    : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
+                )}
+              >
+                {getCategoryIcon(cat.id)}
+                <span>{cat.name}</span>
+              </button>
+            ))}
       </div>
 
       {/* Results count */}
@@ -161,7 +162,7 @@ export default function ExplorePage() {
           <Button variant="outline" className="mt-4" onClick={clearFilters}>Clear Filters</Button>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredSkills.map((skill) => {
             const teachers = mockUsers.filter((u) => u.skillsTeach.some((s) => s.skill.id === skill.id));
 

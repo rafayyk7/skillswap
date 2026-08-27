@@ -63,7 +63,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40">
+    <nav className="sticky top-0 z-40">
       <div className="glass border-b border-white/6 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
