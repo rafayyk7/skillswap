@@ -197,11 +197,11 @@ export default function ExplorePage() {
                         <Avatar key={i} src={u.avatar} name={u.name} size="xs" className="ring-2 ring-surface-2" />
                       ))}
                     </div>
-                    <span className="text-xs text-slate-500">{skill.teacherCount ?? (Math.floor(Math.random() * 100) + 50)} teaching</span>
+                    <span className="text-xs text-slate-500">{skill.teacherCount ?? 50 + (skill.id.charCodeAt(1) % 50)} teaching</span>
                   </div>
                   <div className="flex items-center gap-1 text-xs text-slate-500">
                     <Users size={12} />
-                    {teachers.length > 0 ? teachers.length : Math.floor(Math.random() * 20) + 5} local
+                    {teachers.length > 0 ? teachers.length : 5 + (skill.id.charCodeAt(1) % 20)} local
                   </div>
                 </div>
 

@@ -23,11 +23,12 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Read stored preference and apply immediately
     const stored = localStorage.getItem("skillswap-theme") as Theme | null;
     const initial = stored === "light" ? "light" : "dark";
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
+    setMounted(true);
   }, []);
 
   const toggleTheme = () => {
@@ -37,15 +38,8 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     document.documentElement.classList.toggle("dark", next === "dark");
   };
 
-  // Prevent flash: render children only after mount
-  if (!mounted) {
-    return (
-      <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => {} }}>
-        {children}
-      </ThemeContext.Provider>
-    );
-  }
-
+  // Render children immediately — the <html> has className="dark" by default,
+  // so server and first client paint match. Theme is applied in useEffect.
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
