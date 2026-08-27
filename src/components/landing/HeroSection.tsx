@@ -42,18 +42,18 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
           {/* Left content */}
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-300 text-sm font-medium mb-8">
               <Sparkles size={14} />
               The Future of Peer Learning
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight mb-6">
               Learn a skill.{" "}
               <span className="gradient-text">Teach a skill.</span>{" "}
               Swap knowledge.
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+            <p className="text-lg sm:text-xl text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
               SkillSwap connects people who want to learn with people who want to teach — creating meaningful skill exchanges without money.
             </p>
 
@@ -67,7 +67,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="/explore"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/6 border border-white/12 text-white font-semibold text-base hover:bg-white/10 hover:border-white/20 transition-all"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/6 dark:bg-white/6 border border-black/12 dark:border-white/12 text-slate-700 dark:text-white font-semibold text-base hover:bg-black/5 dark:hover:bg-white/10 hover:border-black/15 dark:hover:border-white/20 transition-all"
               >
                 Explore Skills
               </Link>
@@ -77,9 +77,9 @@ export default function HeroSection() {
             <div className="flex gap-8 justify-center lg:justify-start">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
-                  <div className="flex items-center gap-1.5 justify-center lg:justify-start text-indigo-400 mb-1">
+                  <div className="flex items-center gap-1.5 justify-center lg:justify-start text-indigo-500 dark:text-indigo-400 mb-1">
                     {stat.icon}
-                    <span className="text-2xl font-bold text-white">{stat.value}</span>
+                    <span className="text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</span>
                   </div>
                   <p className="text-xs text-slate-500">{stat.label}</p>
                 </div>

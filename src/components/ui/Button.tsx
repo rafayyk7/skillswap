@@ -20,13 +20,13 @@ const variantClasses: Record<Variant, string> = {
   primary:
     "bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40",
   secondary:
-    "bg-white/8 text-slate-200 hover:bg-white/12 border border-white/10 hover:border-white/20",
+    "bg-black/8 dark:bg-white/8 text-slate-700 dark:text-slate-200 hover:bg-black/12 dark:hover:bg-white/12 border border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20",
   ghost:
-    "text-slate-300 hover:text-white hover:bg-white/6",
+    "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/6",
   outline:
-    "border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 hover:border-indigo-400",
+    "border border-indigo-500/50 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/10 hover:border-indigo-400",
   danger:
-    "bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 hover:border-red-500/50",
+    "bg-red-600/20 text-red-500 dark:text-red-400 border border-red-500/30 hover:bg-red-600/30 hover:border-red-500/50",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -80,4 +80,3 @@ export default function Button({
     </button>
   );
 }
-

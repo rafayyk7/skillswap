@@ -14,6 +14,8 @@ import {
   LayoutDashboard,
   Settings,
   LogOut,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -22,12 +24,13 @@ import Badge from "@/components/ui/Badge";
 import { currentUser } from "@/data/users";
 import { mockNotifications } from "@/data/notifications";
 import { mockConversations } from "@/data/messages";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 const publicNav = [
   { label: "Home", href: "/" },
   { label: "Explore Skills", href: "/explore" },
   { label: "Find People", href: "/matches" },
-  { label: "How It Works", href: "/#how-it-works" },
+  { label: "How It Works", href: "/how-it-works" },
   { label: "Community", href: "/#community" },
 ];
 
@@ -45,6 +48,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
+  const { theme, toggleTheme } = useTheme();
 
   const isAuth = AUTH_PATHS.some((p) => pathname.startsWith(p));
   const unreadNotifs = mockNotifications.filter((n) => !n.read).length;
@@ -64,7 +68,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-40">
-      <div className="glass border-b border-white/6 backdrop-blur-xl">
+      <div className="glass border-b border-black/6 dark:border-white/6 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -72,7 +76,7 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                 <Zap size={16} className="text-white" />
               </div>
-              <span className="text-white font-bold text-lg tracking-tight">SkillSwap</span>
+              <span className="text-white dark:text-white text-slate-800 font-bold text-lg tracking-tight">SkillSwap</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -84,8 +88,8 @@ export default function Navbar() {
                   className={cn(
                     "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                     pathname === link.href
-                      ? "text-white bg-white/8"
-                      : "text-slate-400 hover:text-white hover:bg-white/6"
+                      ? "text-white dark:text-white bg-white/8 dark:bg-white/8 text-indigo-600 bg-indigo-50 dark:bg-white/8"
+                      : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/6"
                   )}
                 >
                   {link.label}
@@ -94,16 +98,25 @@ export default function Navbar() {
             </div>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="w-9 h-9 flex items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8 transition-colors"
+                aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
               {isAuth ? (
                 <>
                   {/* Search */}
-                  <Link href="/search" className="hidden sm:flex w-9 h-9 items-center justify-center rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-colors">
+                  <Link href="/search" className="hidden sm:flex w-9 h-9 items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8 transition-colors">
                     <Search size={18} />
                   </Link>
 
                   {/* Notifications */}
-                  <Link href="/notifications" className="relative hidden sm:flex w-9 h-9 items-center justify-center rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-colors">
+                  <Link href="/notifications" className="relative hidden sm:flex w-9 h-9 items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8 transition-colors">
                     <Bell size={18} />
                     {unreadNotifs > 0 && (
                       <span className="absolute top-1 right-1 w-4 h-4 bg-indigo-500 rounded-full text-xs text-white flex items-center justify-center font-bold">
@@ -113,7 +126,7 @@ export default function Navbar() {
                   </Link>
 
                   {/* Messages */}
-                  <Link href="/messages" className="relative hidden sm:flex w-9 h-9 items-center justify-center rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-colors">
+                  <Link href="/messages" className="relative hidden sm:flex w-9 h-9 items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8 transition-colors">
                     <MessageSquare size={18} />
                     {unreadMsgs > 0 && (
                       <span className="absolute top-1 right-1 w-4 h-4 bg-violet-500 rounded-full text-xs text-white flex items-center justify-center font-bold">
@@ -126,16 +139,16 @@ export default function Navbar() {
                   <div className="relative" ref={profileRef}>
                     <button
                       onClick={() => setProfileOpen(!profileOpen)}
-                      className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-white/8 transition-colors"
+                      className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/8 transition-colors"
                     >
                       <Avatar src={currentUser.avatar} name={currentUser.name} size="sm" isOnline={currentUser.isOnline} />
                       <ChevronDown size={14} className={cn("text-slate-400 transition-transform", profileOpen && "rotate-180")} />
                     </button>
 
                     {profileOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-52 bg-surface-3 border border-white/10 rounded-xl shadow-2xl py-1 z-50">
-                        <div className="px-4 py-3 border-b border-white/8">
-                          <p className="text-sm font-medium text-white">{currentUser.name}</p>
+                      <div className="absolute right-0 top-full mt-2 w-52 bg-white dark:bg-surface-3 border border-black/8 dark:border-white/10 rounded-xl shadow-2xl py-1 z-50">
+                        <div className="px-4 py-3 border-b border-black/8 dark:border-white/8">
+                          <p className="text-sm font-medium text-slate-900 dark:text-white">{currentUser.name}</p>
                           <p className="text-xs text-slate-500">@{currentUser.username}</p>
                         </div>
                         {[
@@ -147,16 +160,16 @@ export default function Navbar() {
                             key={item.href}
                             href={item.href}
                             onClick={() => setProfileOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/6 transition-colors"
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/6 transition-colors"
                           >
-                            <span className="text-slate-500">{item.icon}</span>
+                            <span className="text-slate-400 dark:text-slate-500">{item.icon}</span>
                             {item.label}
                           </Link>
                         ))}
-                        <div className="border-t border-white/8 mt-1 pt-1">
+                        <div className="border-t border-black/8 dark:border-white/8 mt-1 pt-1">
                           <Link
                             href="/"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/8 transition-colors"
+                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-500/8 transition-colors"
                           >
                             <LogOut size={15} />
                             Sign Out
@@ -168,7 +181,7 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="hidden sm:block px-4 py-2 text-sm text-slate-300 hover:text-white transition-colors font-medium">
+                  <Link href="/login" className="hidden sm:block px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium">
                     Sign In
                   </Link>
                   <Link
@@ -183,7 +196,7 @@ export default function Navbar() {
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl text-slate-400 hover:text-white hover:bg-white/8 transition-colors"
+                className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8 transition-colors"
               >
                 {mobileOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -193,7 +206,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-white/6 py-4 px-4 space-y-1">
+          <div className="md:hidden border-t border-black/6 dark:border-white/6 py-4 px-4 space-y-1 bg-white dark:bg-transparent">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -202,19 +215,28 @@ export default function Navbar() {
                 className={cn(
                   "flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
                   pathname === link.href
-                    ? "text-white bg-white/8"
-                    : "text-slate-400 hover:text-white hover:bg-white/6"
+                    ? "text-indigo-600 dark:text-white bg-indigo-50 dark:bg-white/8"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/6"
                 )}
               >
                 {link.label}
               </Link>
             ))}
 
+            {/* Mobile theme toggle */}
+            <button
+              onClick={() => { toggleTheme(); }}
+              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/6 transition-colors"
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
+
             {isAuth ? (
-              <div className="pt-3 border-t border-white/8 flex items-center gap-3 px-3">
+              <div className="pt-3 border-t border-black/8 dark:border-white/8 flex items-center gap-3 px-3">
                 <Avatar src={currentUser.avatar} name={currentUser.name} size="sm" isOnline />
                 <div>
-                  <p className="text-sm font-medium text-white">{currentUser.name}</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white">{currentUser.name}</p>
                   <p className="text-xs text-slate-500">@{currentUser.username}</p>
                 </div>
                 <div className="ml-auto flex gap-2">
@@ -229,8 +251,8 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <div className="pt-3 border-t border-white/8 flex flex-col gap-2">
-                <Link href="/login" onClick={() => setMobileOpen(false)} className="w-full text-center px-4 py-2.5 rounded-xl text-sm text-slate-300 border border-white/10 hover:border-white/20 transition-colors font-medium">
+              <div className="pt-3 border-t border-black/8 dark:border-white/8 flex flex-col gap-2">
+                <Link href="/login" onClick={() => setMobileOpen(false)} className="w-full text-center px-4 py-2.5 rounded-xl text-sm text-slate-600 dark:text-slate-300 border border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition-colors font-medium">
                   Sign In
                 </Link>
                 <Link href="/signup" onClick={() => setMobileOpen(false)} className="w-full text-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm font-medium shadow-lg shadow-indigo-500/20">
@@ -244,4 +266,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

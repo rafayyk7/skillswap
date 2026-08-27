@@ -38,7 +38,7 @@ export default function StarRating({
             key={i}
             className={cn(
               sizeClasses[size],
-              filled ? "text-amber-400 fill-amber-400" : "text-slate-600 fill-transparent",
+              filled ? "text-amber-400 fill-amber-400" : "text-slate-400 dark:text-slate-600 fill-transparent",
               interactive && "cursor-pointer hover:scale-110 transition-transform"
             )}
             onMouseEnter={() => interactive && setHovered(i + 1)}
@@ -50,4 +50,3 @@ export default function StarRating({
     </div>
   );
 }
-

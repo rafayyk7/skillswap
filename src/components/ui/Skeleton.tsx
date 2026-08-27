@@ -13,7 +13,7 @@ export function Skeleton({ className }: SkeletonProps) {
 
 export function SkeletonCard() {
   return (
-    <div className="bg-surface-2 border border-white/5 rounded-2xl p-5 space-y-4">
+    <div className="bg-surface-2 border border-black/5 dark:border-white/5 rounded-2xl p-5 space-y-4">
       <div className="flex items-start gap-3">
         <Skeleton className="w-12 h-12 rounded-full" />
         <div className="flex-1 space-y-2">
@@ -43,4 +43,3 @@ export function SkeletonText({ lines = 3 }: SkeletonProps) {
     </div>
   );
 }
-

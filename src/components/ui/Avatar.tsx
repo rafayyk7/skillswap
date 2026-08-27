@@ -53,7 +53,7 @@ export default function Avatar({ src, name, size = "md", isOnline, className }: 
     <div className={cn("relative shrink-0", className)}>
       <div
         className={cn(
-          "rounded-full overflow-hidden ring-2 ring-white/10",
+          "rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/10",
           sizeClasses[size]
         )}
       >
@@ -73,7 +73,7 @@ export default function Avatar({ src, name, size = "md", isOnline, className }: 
       {isOnline !== undefined && (
         <span
           className={cn(
-            "absolute bottom-0 right-0 rounded-full ring-2 ring-slate-900",
+            "absolute bottom-0 right-0 rounded-full ring-2 ring-surface-0 dark:ring-slate-900",
             onlineDotSize[size],
             isOnline ? "bg-emerald-400" : "bg-slate-500"
           )}
@@ -82,4 +82,3 @@ export default function Avatar({ src, name, size = "md", isOnline, className }: 
     </div>
   );
 }
-

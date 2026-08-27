@@ -1,4 +1,5 @@
-import { UserPlus, BookOpen, Repeat2, GraduationCap } from "lucide-react";
+import Link from "next/link";
+import { UserPlus, BookOpen, Repeat2, GraduationCap, ArrowRight } from "lucide-react";
 
 const steps = [
   {
@@ -41,13 +42,13 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-indigo-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+          <span className="text-indigo-500 dark:text-indigo-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
             Simple Process
           </span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6">
             How SkillSwap Works
           </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
             Getting started takes minutes. Finding your match takes seconds. Learning together lasts a lifetime.
           </p>
         </div>
@@ -58,12 +59,12 @@ export default function HowItWorks() {
             <div key={step.step} className="relative group">
               {/* Connector line */}
               {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-white/10 to-transparent z-0" />
+                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-black/10 dark:from-white/10 to-transparent z-0" />
               )}
 
-              <div className="relative z-10 bg-surface-2 border border-white/6 rounded-2xl p-6 hover:border-white/15 hover:bg-surface-3 transition-all duration-300 group-hover:-translate-y-1">
+              <div className="relative z-10 bg-surface-2 border border-black/6 dark:border-white/6 rounded-2xl p-6 hover:border-black/10 dark:hover:border-white/15 hover:bg-surface-3 transition-all duration-300 group-hover:-translate-y-1">
                 {/* Step number */}
-                <div className="text-xs font-bold text-slate-600 tracking-wider mb-4">
+                <div className="text-xs font-bold text-slate-400 dark:text-slate-600 tracking-wider mb-4">
                   STEP {step.step}
                 </div>
 
@@ -74,14 +75,24 @@ export default function HowItWorks() {
                   {step.icon}
                 </div>
 
-                <h3 className="text-base font-semibold text-white mb-3">{step.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
+                <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-3">{step.title}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{step.description}</p>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <Link
+            href="/how-it-works"
+            className="inline-flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors"
+          >
+            Learn more about how it works
+            <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-

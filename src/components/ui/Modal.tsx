@@ -42,17 +42,17 @@ export default function Modal({ open, onClose, title, children, size = "md" }: M
       {/* Panel */}
       <div
         className={cn(
-          "relative w-full bg-surface-2 border border-white/10 rounded-2xl shadow-2xl",
+          "relative w-full bg-surface-2 border border-black/10 dark:border-white/10 rounded-2xl shadow-2xl",
           "max-h-[90vh] flex flex-col",
           sizeClasses[size]
         )}
       >
         {title && (
-          <div className="flex items-center justify-between p-6 border-b border-white/8 shrink-0">
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
+          <div className="flex items-center justify-between p-6 border-b border-black/8 dark:border-white/8 shrink-0">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h2>
             <button
               onClick={onClose}
-              className="text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/8"
+              className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/8"
             >
               <X size={20} />
             </button>
@@ -61,7 +61,7 @@ export default function Modal({ open, onClose, title, children, size = "md" }: M
         {!title && (
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/8 z-10"
+            className="absolute right-4 top-4 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/8 z-10"
           >
             <X size={20} />
           </button>
@@ -71,4 +71,3 @@ export default function Modal({ open, onClose, title, children, size = "md" }: M
     </div>
   );
 }
-

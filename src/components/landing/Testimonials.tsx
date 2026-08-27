@@ -69,13 +69,13 @@ export default function Testimonials() {
     <section className="py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-14">
-          <span className="text-rose-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+          <span className="text-rose-500 dark:text-rose-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
             Community Stories
           </span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Real People. Real Swaps. Real Growth.
           </h2>
-          <p className="text-lg text-slate-400 max-w-xl mx-auto">
+          <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
             Every swap creates a story. Here are some from our community.
           </p>
         </div>
@@ -84,7 +84,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="bg-surface-2 border border-white/6 rounded-2xl p-6 hover:border-white/15 transition-all duration-200 group"
+              className="bg-surface-2 border border-black/6 dark:border-white/6 rounded-2xl p-6 hover:border-black/10 dark:hover:border-white/15 transition-all duration-200 group"
             >
               {/* Stars */}
               <div className="flex gap-0.5 mb-4">
@@ -93,19 +93,19 @@ export default function Testimonials() {
                 ))}
               </div>
 
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
                 &ldquo;{t.quote}&rdquo;
               </p>
 
-              <div className="pt-4 border-t border-white/6">
+              <div className="pt-4 border-t border-black/6 dark:border-white/6">
                 <div className="flex items-center gap-3">
                   <Avatar src={t.avatar} name={t.name} size="md" />
                   <div>
-                    <p className="text-sm font-semibold text-white">{t.name}</p>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white">{t.name}</p>
                     <p className="text-xs text-slate-500">{t.role} · {t.country}</p>
                   </div>
                 </div>
-                <p className="text-xs text-indigo-400 mt-3 font-medium">{t.skill}</p>
+                <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-3 font-medium">{t.skill}</p>
               </div>
             </div>
           ))}
@@ -114,4 +114,3 @@ export default function Testimonials() {
     </section>
   );
 }
-

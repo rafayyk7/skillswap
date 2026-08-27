@@ -36,8 +36,8 @@ export default function ExplorePage() {
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Explore Skills</h1>
-        <p className="text-slate-400">Discover skills taught by our community — and find your next learning partner.</p>
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Explore Skills</h1>
+        <p className="text-slate-500 dark:text-slate-400">Discover skills taught by our community — and find your next learning partner.</p>
       </div>
 
       {/* Search + Filters */}
@@ -73,10 +73,10 @@ export default function ExplorePage() {
 
       {/* Filter panel */}
       {showFilters && (
-        <div className="bg-surface-2 border border-white/8 rounded-2xl p-5 mb-6">
+        <div className="bg-surface-2 border border-black/8 dark:border-white/8 rounded-2xl p-5 mb-6">
           <div className="grid sm:grid-cols-2 gap-6">
             <div>
-              <p className="text-sm font-medium text-slate-300 mb-3">Category</p>
+              <p className="text-sm font-medium text-slate-600 dark:text-slate-300 mb-3">Category</p>
               <div className="flex flex-wrap gap-2">
                 {skillCategories.map((cat) => (
                   <button
@@ -85,8 +85,8 @@ export default function ExplorePage() {
                     className={cn(
                       "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all",
                       selectedCategory === cat.id
-                        ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
-                        : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
+                        ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-600 dark:text-indigo-300"
+                        : "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-black/20 dark:hover:border-white/20"
                     )}
                   >
                     {getCategoryIcon(cat.id)} {cat.name}
@@ -95,7 +95,7 @@ export default function ExplorePage() {
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-slate-300 mb-3">Skill Level</p>
+              <p className="text-sm font-medium text-slate-600 dark:text-slate-300 mb-3">Skill Level</p>
               <div className="flex flex-wrap gap-2">
                 {["beginner", "intermediate", "advanced", "expert"].map((level) => (
                   <button
@@ -104,8 +104,8 @@ export default function ExplorePage() {
                     className={cn(
                       "px-3 py-1.5 rounded-xl text-xs font-medium border transition-all capitalize",
                       selectedLevel === level
-                        ? "bg-violet-500/20 border-violet-500/40 text-violet-300"
-                        : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
+                        ? "bg-violet-500/20 border-violet-500/40 text-violet-600 dark:text-violet-300"
+                        : "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-black/20 dark:hover:border-white/20"
                     )}
                   >
                     {level}
@@ -124,8 +124,8 @@ export default function ExplorePage() {
           className={cn(
             "px-4 py-2 rounded-full text-sm font-medium border whitespace-nowrap transition-all shrink-0",
             !selectedCategory
-              ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
-              : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
+              ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-600 dark:text-indigo-300"
+              : "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-black/20 dark:hover:border-white/20"
           )}
         >
           All Categories
@@ -136,8 +136,8 @@ export default function ExplorePage() {
                 className={cn(
                   "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border whitespace-nowrap transition-all shrink-0",
                   selectedCategory === cat.id
-                    ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300"
-                    : "bg-white/5 border-white/10 text-slate-400 hover:border-white/20"
+                    ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-600 dark:text-indigo-300"
+                    : "bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-black/20 dark:hover:border-white/20"
                 )}
               >
                 {getCategoryIcon(cat.id)}
@@ -156,8 +156,8 @@ export default function ExplorePage() {
       {/* Skill cards grid */}
       {filteredSkills.length === 0 ? (
         <div className="text-center py-24">
-          <Search size={40} className="mx-auto text-slate-600 mb-4" />
-          <h3 className="text-lg font-semibold text-slate-300 mb-2">No skills found</h3>
+          <Search size={40} className="mx-auto text-slate-400 dark:text-slate-600 mb-4" />
+          <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-300 mb-2">No skills found</h3>
           <p className="text-slate-500">Try different keywords or clear your filters.</p>
           <Button variant="outline" className="mt-4" onClick={clearFilters}>Clear Filters</Button>
         </div>
@@ -169,11 +169,11 @@ export default function ExplorePage() {
             return (
               <div
                 key={skill.id}
-                className="bg-surface-2 border border-white/6 rounded-2xl p-5 hover:border-white/15 hover:-translate-y-0.5 transition-all duration-200 group"
+                className="bg-surface-2 border border-black/6 dark:border-white/6 rounded-2xl p-5 hover:border-black/10 dark:hover:border-white/15 hover:-translate-y-0.5 transition-all duration-200 group"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="font-semibold text-white">{skill.name}</h3>
+                    <h3 className="font-semibold text-slate-900 dark:text-white">{skill.name}</h3>
                     <p className="text-xs text-slate-500 mt-0.5">{skill.categoryName}</p>
                   </div>
                   <Badge
@@ -188,7 +188,7 @@ export default function ExplorePage() {
                   </Badge>
                 </div>
 
-                <p className="text-xs text-slate-400 mb-4 line-clamp-2">{skill.description}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">{skill.description}</p>
 
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
@@ -205,7 +205,7 @@ export default function ExplorePage() {
                   </div>
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-500/30 text-indigo-400 text-sm font-medium hover:bg-indigo-500/10 hover:border-indigo-400 transition-all">
+                <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-500/10 hover:border-indigo-400 transition-all">
                   Find Teachers
                   <ArrowRight size={14} />
                 </button>
@@ -217,4 +217,3 @@ export default function ExplorePage() {
     </div>
   );
 }
-

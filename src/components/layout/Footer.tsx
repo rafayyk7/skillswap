@@ -5,7 +5,7 @@ const footerLinks = {
   Product: [
     { label: "Explore Skills", href: "/explore" },
     { label: "Find Matches", href: "/matches" },
-    { label: "How It Works", href: "/#how-it-works" },
+    { label: "How It Works", href: "/how-it-works" },
     { label: "Community", href: "/#community" },
   ],
   Company: [
@@ -30,7 +30,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/6 bg-surface-1">
+    <footer className="border-t border-black/6 dark:border-white/6 bg-surface-1">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
@@ -39,7 +39,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
                 <Zap size={16} className="text-white" />
               </div>
-              <span className="text-white font-bold text-lg">SkillSwap</span>
+              <span className="text-slate-900 dark:text-white font-bold text-lg">SkillSwap</span>
             </Link>
             <p className="text-sm text-slate-500 leading-relaxed mb-6">
               The global community where knowledge is exchanged, not bought.
@@ -54,7 +54,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href={social.href}
-                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/8 flex items-center justify-center text-slate-500 hover:text-white hover:bg-white/10 hover:border-white/15 transition-all"
+                  className="w-9 h-9 rounded-xl bg-black/5 dark:bg-white/5 border border-black/8 dark:border-white/8 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-black/10 dark:hover:bg-white/10 hover:border-black/15 dark:hover:border-white/15 transition-all"
                 >
                   {social.icon}
                 </a>
@@ -65,13 +65,13 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-sm font-semibold text-white mb-4">{category}</h4>
+              <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">{category}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-500 hover:text-slate-300 transition-colors"
+                      className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -82,11 +82,11 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-600">
+        <div className="mt-16 pt-8 border-t border-black/6 dark:border-white/6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-slate-500">
             © {new Date().getFullYear()} SkillSwap. All rights reserved.
           </p>
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-slate-500">
             Built with ❤️ for the global learning community
           </p>
         </div>
@@ -94,4 +94,3 @@ export default function Footer() {
     </footer>
   );
 }
-

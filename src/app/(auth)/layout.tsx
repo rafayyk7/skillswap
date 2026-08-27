@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
             <Zap size={16} className="text-white" />
           </div>
-          <span className="text-white font-bold text-lg">SkillSwap</span>
+          <span className="text-slate-900 dark:text-white font-bold text-lg">SkillSwap</span>
         </Link>
       </header>
 
@@ -38,4 +38,3 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-

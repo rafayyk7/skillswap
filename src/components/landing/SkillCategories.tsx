@@ -67,16 +67,16 @@ export default function SkillCategories() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-violet-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className="text-violet-500 dark:text-violet-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
               Explore Categories
             </span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white">
+            <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white">
               Every Skill You <span className="gradient-text">Can Imagine</span>
             </h2>
           </div>
           <Link
             href="/explore"
-            className="flex items-center gap-2 text-sm text-indigo-400 hover:text-indigo-300 font-medium transition-colors whitespace-nowrap"
+            className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors whitespace-nowrap"
           >
             Browse all categories
             <ArrowRight size={16} />
@@ -89,8 +89,8 @@ export default function SkillCategories() {
               key={cat.id}
               href={`/explore?category=${cat.id}`}
               className={cn(
-                "group relative rounded-2xl border border-white/6 bg-surface-2 p-4",
-                "hover:border-white/15 hover:bg-surface-3 transition-all duration-200 hover:-translate-y-0.5",
+                "group relative rounded-2xl border border-black/6 dark:border-white/6 bg-surface-2 p-4",
+                "hover:border-black/10 dark:hover:border-white/15 hover:bg-surface-3 transition-all duration-200 hover:-translate-y-0.5",
                 "flex flex-col items-center text-center gap-2"
               )}
             >
@@ -103,10 +103,10 @@ export default function SkillCategories() {
                 {getCategoryIcon(cat.id)}
               </div>
               <div>
-                <p className="text-xs font-semibold text-slate-200 leading-snug group-hover:text-white transition-colors">
+                <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 leading-snug group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                   {cat.name}
                 </p>
-                <p className="text-xs text-slate-600 mt-0.5">{cat.count.toLocaleString()}</p>
+                <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">{cat.count.toLocaleString()}</p>
               </div>
             </Link>
           ))}

@@ -41,8 +41,9 @@ export default function MatchRing({ percentage, size = "md", className }: MatchR
           cy={outer / 2}
           r={radius}
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
+          stroke="rgba(0,0,0,0.06)"
           strokeWidth={stroke}
+          className="dark:[stroke:rgba(255,255,255,0.06)]"
         />
         <circle
           cx={outer / 2}
@@ -57,10 +58,9 @@ export default function MatchRing({ percentage, size = "md", className }: MatchR
           style={{ transition: "stroke-dashoffset 0.8s ease" }}
         />
       </svg>
-      <span className={cn("font-bold text-white z-10", textSize)}>
+      <span className={cn("font-bold text-slate-900 dark:text-white z-10", textSize)}>
         {percentage}%
       </span>
     </div>
   );
 }
-

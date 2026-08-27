@@ -9,10 +9,10 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantClasses = {
-  default: "bg-surface-2 border border-white/5",
+  default: "bg-surface-2 border border-black/5 dark:border-white/5",
   glass: "glass",
   border: "border-gradient bg-surface-2",
-  elevated: "bg-surface-3 border border-white/8 shadow-xl shadow-black/30",
+  elevated: "bg-surface-3 border border-black/8 dark:border-white/8 shadow-xl shadow-black/30",
 };
 
 const paddingClasses = {
@@ -36,7 +36,7 @@ export default function Card({
         "rounded-2xl transition-all duration-200",
         variantClasses[variant],
         paddingClasses[padding],
-        hover && "hover:border-white/15 hover:bg-white/4 cursor-pointer",
+        hover && "hover:border-black/15 dark:hover:border-white/15 hover:bg-black/4 dark:hover:bg-white/4 cursor-pointer",
         className
       )}
       {...props}
@@ -45,4 +45,3 @@ export default function Card({
     </div>
   );
 }
-
