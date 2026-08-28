@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Navbar from "@/components/layout/Navbar";
 import {
   UserPlus,
   BookOpen,
@@ -84,6 +85,7 @@ const steps = [
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen">
+      <Navbar />
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-20 overflow-hidden">
         {/* Background decoration */}

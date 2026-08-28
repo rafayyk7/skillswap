@@ -54,7 +54,9 @@ export default function Navbar() {
   const unreadNotifs = mockNotifications.filter((n) => !n.read).length;
   const unreadMsgs = mockConversations.reduce((s, c) => s + c.unreadCount, 0);
 
-  const navLinks = isAuth ? authNav : publicNav;
+  const navLinks = isAuth
+    ? authNav
+    : publicNav.filter((link) => !(pathname === "/how-it-works" && link.href === "/how-it-works"));
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
