@@ -1,0 +1,1054 @@
+\documentclass[12pt,a4paper]{report}
+
+% ── Packages ──────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{caption}
+
+% ── Colours ───────────────────────────────────────────────────────────
+\definecolor{skillpurple}{HTML}{7C3AED}
+\definecolor{skilldark}{HTML}{1E1B2E}
+\definecolor{codebg}{HTML}{F5F5F5}
+\definecolor{codeframe}{HTML}{CCCCCC}
+\definecolor{linkblue}{HTML}{2563EB}
+
+% ── Hyperref ──────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks  = true,
+  linkcolor   = skillpurple,
+  urlcolor    = linkblue,
+  citecolor   = skillpurple,
+}
+
+% ── Header / Footer ──────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{SkillSwap Project Report}}
+\fancyhead[R]{\textit{Abdul Rafay Khan}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Code listing style ───────────────────────────────────────────────
+\lstset{
+  basicstyle      = \ttfamily\small,
+  backgroundcolor = \color{codebg},
+  frame           = single,
+  framerule        = 0.4pt,
+  rulecolor        = \color{codeframe},
+  breaklines       = true,
+  columns          = flexible,
+}
+
+% ── Chapter / section formatting ─────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{skillpurple}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{skillpurple}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+% ── TOC formatting ───────────────────────────────────────────────────
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+
+% ──────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ══════════════════════════════════════════════════════════════════════
+%  TITLE PAGE
+% ══════════════════════════════════════════════════════════════════════
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+
+{\Huge\bfseries\color{skillpurple} SkillSwap}\\[0.6cm]
+{\LARGE A Web-Based Skill Exchange Platform}\\[1.2cm]
+{\Large Project Completion Report}\\[2cm]
+
+\rule{\textwidth}{1.5pt}\\[1.5cm]
+
+{\Large\textbf{Submitted By}}\\[0.4cm]
+{\Large Abdul Rafay Khan}\\[1cm]
+
+{\Large\textbf{Project / Internship}}\\[0.4cm]
+{\Large Inventomo Technologies}\\[1cm]
+
+{\Large\textbf{Technology Stack}}\\[0.4cm]
+{\large Next.js, TypeScript, PostgreSQL, Drizzle ORM, Docker}\\[0.3cm]
+{\large React, Tailwind CSS, Lucide React, shadcn/ui}\\[2cm]
+
+{\Large 2026}
+
+\vfill
+\end{titlepage}
+
+% ── Declaration ───────────────────────────────────────────────────────
+\chapter*{Declaration}
+\addcontentsline{toc}{chapter}{Declaration}
+
+I hereby declare that this project report presents the work completed for the
+development and implementation of the SkillSwap web application.  The report
+summarises the application's architecture, major features, user-interface design,
+database implementation, testing, verification, and final deployment to version
+control.
+
+The implementation was developed and tested in the specified project environment,
+and the final application was verified to compile successfully and run without
+reported runtime or database connection errors.
+
+\vspace{2cm}
+\begin{flushright}
+\textbf{Author:} Abdul Rafay Khan
+\end{flushright}
+
+% ── Abstract ──────────────────────────────────────────────────────────
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+SkillSwap is a web-based skill exchange platform designed to allow users to share
+knowledge and learn new skills from other users.  The platform provides a
+structured environment where users can create profiles, specify the skills they
+can teach and the skills they want to learn, discover suitable users, initiate
+skill swap requests, communicate with other users, schedule learning sessions,
+and provide reviews.
+
+The project was implemented using modern web technologies including Next.js,
+TypeScript, PostgreSQL, Drizzle ORM, and Docker.  A relational PostgreSQL database
+was designed and integrated with the application through Drizzle ORM.  The final
+database contains 24 tables covering authentication, user profiles, skills, skill
+exchanges, sessions, reviews, messaging, notifications, and reporting.
+
+Following core functionality completion, a comprehensive \textbf{UI/UX Design
+Update} phase was carried out.  This phase introduced a redesigned landing page
+with Lucide React icons replacing emoji characters, a responsive 3-column skills
+grid, a dedicated ``How It Works'' page, individual statistic cards for the
+Global Learning Community section, a dark/light mode toggle with persistent
+theme preference, and a fixed navbar--sidebar layout.  All changes were validated
+through TypeScript compilation, hydration-error verification, and cross-route
+testing.
+
+The completed application was validated through TypeScript compilation, database
+verification, development-server testing, and route verification.  The final
+codebase was committed and pushed to GitHub.  At completion, the application was
+functioning successfully and was ready for demonstration.
+
+% ── Table of Contents ────────────────────────────────────────────────
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 1 — INTRODUCTION
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Introduction}
+
+\section{Background}
+The exchange of knowledge and practical skills has traditionally depended on
+formal educational institutions, professional training programs, and personal
+networks.  However, modern web technologies make it possible to connect
+individuals who possess different skills and allow them to learn from one another
+directly.
+
+SkillSwap was developed as a web-based platform for this purpose.  The
+application enables users to act both as learners and teachers.  A user can
+identify the skills they are capable of teaching, specify the skills they wish to
+learn, and discover other users with complementary skills.
+
+\section{Project Overview}
+SkillSwap provides an integrated platform for managing the complete skill
+exchange process.  The application includes:
+
+\begin{itemize}[noitemsep]
+  \item User registration and authentication.
+  \item User profile management.
+  \item Teaching and learning skill management.
+  \item Skill and category browsing with Lucide React icons.
+  \item User search and matching.
+  \item Skill swap requests.
+  \item Learning sessions.
+  \item User-to-user messaging.
+  \item Reviews and ratings.
+  \item Notifications.
+  \item Reporting functionality.
+  \item Dark/light mode with persistent theme preference.
+  \item Dedicated ``How It Works'' informational page.
+\end{itemize}
+
+\section{Project Objectives}
+The major objectives of the project were:
+\begin{enumerate}[noitemsep]
+  \item Develop a functional web-based skill exchange platform.
+  \item Provide users with profiles representing their skills and interests.
+  \item Implement a system for discovering compatible learning partners.
+  \item Provide mechanisms for initiating and managing skill swaps.
+  \item Implement communication between users.
+  \item Support learning-session management.
+  \item Provide reviews and ratings for completed interactions.
+  \item Establish a reliable relational database architecture.
+  \item Design and implement a polished, responsive, and accessible user
+        interface.
+  \item Validate the application through compilation and runtime testing.
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 2 — SYSTEM REQUIREMENTS
+% ══════════════════════════════════════════════════════════════════════
+\chapter{System Requirements}
+
+\section{Functional Requirements}
+The completed system supports the following functional requirements.
+
+\subsection{User Management}
+Users can register and authenticate with the application.  The system maintains
+user information and associated profile data.
+
+\subsection{Profile Management}
+Each user can maintain profile information and provide information about their
+skills, languages, availability, and portfolio.
+
+\subsection{Skill Management}
+The system maintains categories, skills, and languages.  Users can specify skills
+they are able to teach and skills they want to learn.
+
+\subsection{Skill Matching}
+The platform provides search and matching functionality that allows users to
+discover potential learning partners.
+
+\subsection{Swap Management}
+Users can create and manage skill swap requests.  Accepted exchanges are
+represented through the swap system.
+
+\subsection{Learning Sessions}
+Learning sessions can be associated with skill swaps.  The system also supports
+session notes and session-related information.
+
+\subsection{Messaging}
+Users can communicate through conversations.  Conversations contain participants
+and messages, with support for message attachments.
+
+\subsection{Reviews}
+The platform supports reviews and ratings associated with user interactions and
+learning sessions.
+
+\subsection{Notifications}
+The notification system provides users with application-level notifications
+related to relevant events.
+
+\subsection{Reports}
+The system includes reporting functionality for users or application content.
+
+\section{UI/UX Design Requirements}
+In addition to the functional requirements above, the following UI/UX design
+requirements were established for the final design-update phase:
+
+\begin{itemize}[noitemsep]
+  \item Replace emoji-based category icons with proper Lucide React icons.
+  \item Display skill cards in a 3-column responsive grid (3 / 2 / 1 columns).
+  \item Fix the navbar overlapping the sidebar in the authenticated layout.
+  \item Redesign the Global Learning Community section with individual statistic
+        cards.
+  \item Create a dedicated \texttt{/how-it-works} page with step-by-step
+        guidance.
+  \item Implement dark/light mode with persistent theme preference.
+  \item Ensure full responsiveness across desktop, tablet, and mobile.
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 3 — TECHNOLOGY STACK
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Technology Stack}
+
+\section{Frontend}
+The application uses Next.js as the primary web framework.  Next.js provides
+the application structure, routing, rendering, and development environment.  The
+frontend is built with React and uses Tailwind CSS for styling.
+
+\section{Programming Language}
+TypeScript is used throughout the application.  TypeScript provides static type
+checking and improves reliability when working with database models, services,
+APIs, and application components.
+
+\section{Database}
+The application uses PostgreSQL as its relational database management system.
+During development, PostgreSQL~15 was deployed using Docker.  The database was
+exposed through port 5432 and connected to the application using the
+\texttt{DATABASE\_URL} environment variable.
+
+\section{ORM}
+Drizzle ORM was used to define and interact with the PostgreSQL database.  The
+database schema is represented through TypeScript definitions in
+\texttt{src/db/schema.ts}.  Drizzle Kit was used to deploy the schema to the
+PostgreSQL database.
+
+\section{Containerisation}
+Docker was used to provide the PostgreSQL development environment.  The
+PostgreSQL container used during verification was based on PostgreSQL~15.  A
+Redis container was also available in the development environment.
+
+\section{Authentication Dependencies}
+The project uses existing authentication dependencies including \texttt{bcryptjs}
+and \texttt{jose}.  Secure random token generation was implemented using
+Node.js cryptographic functionality.
+
+\section{UI Component \& Icon Libraries}
+The following UI libraries were used in the frontend:
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Lucide React} -- icon library providing all application icons,
+        replacing emoji-based indicators in category cards, ``How It Works''
+        steps, and navigation elements.
+  \item \textbf{shadcn/ui} -- accessible, styled UI primitives (Button, Input,
+        Badge, Card, Modal, Avatar, Skeleton) built on Tailwind CSS.
+  \item \textbf{Tailwind CSS} -- utility-first CSS framework used for all
+        styling, including dark mode via the \texttt{dark:} variant prefix.
+  \item \textbf{Framer Motion} -- animation library for page transitions and
+        interactive elements.
+\end{itemize}
+
+\section{Theme System}
+A custom \texttt{ThemeProvider} context was implemented using React Context and
+\texttt{localStorage} for theme persistence.  The system applies a
+\texttt{dark} / light class on the \texttt{<html>} element and uses Tailwind's
+\texttt{@custom-variant dark} directive for automatic dark-mode styling.
+No third-party theme library (e.g.\ \texttt{next-themes}) was required.
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 4 — SYSTEM ARCHITECTURE
+% ══════════════════════════════════════════════════════════════════════
+\chapter{System Architecture}
+
+\section{Architecture Overview}
+The SkillSwap application follows a layered web application architecture.  The
+major layers are:
+
+\begin{enumerate}[noitemsep]
+  \item Presentation Layer
+  \item Application and Service Layer
+  \item Database Layer
+  \item Infrastructure Layer
+\end{enumerate}
+
+\section{Presentation Layer}
+The presentation layer is implemented using Next.js and React and provides the
+user interface and application routes.
+
+Major routes verified during testing include:
+
+\begin{itemize}[noitemsep]
+  \item Landing page (\texttt{/})
+  \item How It Works (\texttt{/how-it-works})
+  \item Signup (\texttt{/signup})
+  \item Login (\texttt{/login})
+  \item User profiles (\texttt{/profile/[id]})
+  \item Skills (\texttt{/skills})
+  \item Matches (\texttt{/matches})
+  \item Explore (\texttt{/explore})
+  \item Requests (\texttt{/requests})
+  \item Messages (\texttt{/messages})
+  \item Sessions (\texttt{/sessions})
+  \item Reviews (\texttt{/reviews})
+  \item Notifications (\texttt{/notifications})
+\end{itemize}
+
+The presentation layer also includes a custom \texttt{ThemeProvider} component,
+a reusable \texttt{Navbar} with dark/light toggle, a fixed sidebar for
+authenticated routes, and a responsive footer.
+
+\section{Service Layer}
+The service layer contains application business logic for major domains,
+including:
+
+\begin{itemize}[noitemsep]
+  \item Users, Dashboard, Matching, Messaging, Notifications
+  \item Reports, Requests, Reviews, Search, Sessions, Skills, Swaps
+\end{itemize}
+
+The service architecture separates application functionality from the database
+implementation.
+
+\section{Database Layer}
+The database layer consists of PostgreSQL accessed through Drizzle ORM.  The
+database connection is defined in \texttt{src/db/index.ts}.  The application
+retrieves its database connection string from the \texttt{DATABASE\_URL}
+environment variable.
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 5 — DATABASE DESIGN
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Database Design}
+
+\section{Database Overview}
+The completed SkillSwap database contains 24 tables.
+
+\begin{longtable}{@{} l l @{}}
+\toprule
+\textbf{Table} & \textbf{Purpose} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Table} & \textbf{Purpose} \\
+\midrule
+\endhead
+users                  & Authentication and user information \\
+profiles               & Extended user profile information \\
+sessions               & Active user sessions \\
+email\_verifications   & Email verification records \\
+password\_resets       & Password reset records \\
+categories             & Skill categories \\
+skills                 & Individual platform skills \\
+languages              & Supported languages \\
+user\_teaching\_skills & Skills users can teach \\
+user\_learning\_skills & Skills users want to learn \\
+user\_languages        & Languages associated with users \\
+availability           & User availability information \\
+portfolio\_items       & User portfolio projects \\
+swap\_requests         & Requests to initiate skill exchanges \\
+swaps                  & Active and completed skill exchanges \\
+learning\_sessions     & Individual learning sessions \\
+session\_notes         & Notes associated with sessions \\
+reviews                & Reviews and ratings \\
+conversations          & User conversations \\
+conversation\_participants & Users participating in conversations \\
+messages               & Individual conversation messages \\
+message\_attachments   & Attachments associated with messages \\
+notifications          & User notifications \\
+reports                & User/content reports \\
+\bottomrule
+\end{longtable}
+
+\section{Major Relationships}
+The database establishes relationships between users, profiles, skills, swaps,
+sessions, conversations, and reviews.  Important relationships include:
+
+\begin{itemize}[noitemsep]
+  \item Users and profiles form a one-to-one profile relationship.
+  \item Users and skills form many-to-many relationships through teaching and
+        learning junction tables.
+  \item Swaps can contain multiple learning sessions.
+  \item Swaps can be associated with conversations.
+  \item Conversations contain multiple messages and multiple participants.
+  \item Learning sessions can have associated reviews.
+  \item Users can receive notifications.
+\end{itemize}
+
+\section{Database Configuration}
+The database connection is configured using an environment variable:
+
+\begin{lstlisting}
+DATABASE_URL=postgresql://postgres:password@localhost:5432/skillswap
+\end{lstlisting}
+
+The actual environment configuration is maintained locally and is not committed
+to the public source repository.
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 6 — APPLICATION FEATURES
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Application Features}
+
+\section{Landing Page}
+The landing page serves as the primary entry point for the SkillSwap
+application.  It introduces the platform and provides navigation to the main
+user flows.  The landing page consists of the following sections:
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Hero Section} -- headline, description, and call-to-action
+        buttons linking to signup and explore routes.
+  \item \textbf{Explore Categories} -- skill category cards with Lucide React
+        icons (Monitor, Smartphone, Palette, PenTool, Film, Megaphone, etc.),
+        responsive grid, and hover effects.
+  \item \textbf{Featured Matches} -- sample skill-swap match previews.
+  \item \textbf{How It Works} -- overview of the platform process with a link
+        to the dedicated \texttt{/how-it-works} page.
+  \item \textbf{Global Learning Community} -- four individual statistic cards
+        (Active Learners, Skills Exchanged, Countries, Avg.\ Experience) with
+        icons, large numbers, labels, and hover interactions.
+  \item \textbf{Testimonials} -- user testimonials.
+  \item \textbf{Why SkillSwap} -- value proposition section.
+  \item \textbf{CTA Section} -- final call-to-action before the footer.
+\end{itemize}
+
+\section{Dark / Light Mode}
+The application supports a dark/light mode toggle implemented through a custom
+\texttt{ThemeProvider}:
+
+\begin{itemize}[noitemsep]
+  \item The \texttt{<html>} element receives a \texttt{dark} or unstyled class.
+  \item Theme preference is persisted in \texttt{localStorage}.
+  \item A Sun/Moon icon toggle is present in the Navbar on all pages.
+  \item Dark mode is the default appearance, preserving the original SkillSwap
+        visual identity.
+  \item Light mode is a polished variant of the same design system using
+        adjusted CSS custom properties for backgrounds, borders, and text.
+  \item All components (cards, inputs, modals, buttons, badges, sidebar, footer)
+        respond to the active theme through Tailwind's \texttt{dark:} variant.
+\end{itemize}
+
+\section{How It Works Page}
+A dedicated \texttt{/how-it-works} route provides a step-by-step guide to the
+SkillSwap process.  The page includes:
+
+\begin{itemize}[noitemsep]
+  \item A hero section with title, description, and CTAs linking to
+        \texttt{/signup} and \texttt{/explore}.
+  \item Eight step cards in a 2-column grid, each with a step number, Lucide
+        icon, title, and description:
+  \begin{enumerate}[noitemsep]
+    \item Create Your Profile
+    \item Add Skills You Can Teach
+    \item Add Skills You Want to Learn
+    \item Discover People
+    \item Send a Swap Request
+    \item Connect and Schedule a Session
+    \item Learn and Exchange Skills
+    \item Leave a Review
+  \end{enumerate}
+  \item A visual flow diagram connecting the steps.
+  \item A final CTA section.
+  \item The existing Navbar is displayed at the top, with the ``How It Works''
+        nav item automatically hidden when the user is already on the page.
+\end{itemize}
+
+\section{Authentication}
+The application provides registration and login functionality.
+Authentication infrastructure includes secure password handling and token-based
+session functionality.
+
+\section{User Profiles}
+Users have profiles containing information relevant to the skill exchange
+process.  Profile-related data includes teaching skills, learning skills,
+languages, availability, and portfolio information.
+
+\section{Skills and Categories}
+The system organises skills through categories.  Categories are displayed with
+Lucide React icons on the landing page and are browsable through the explore
+interface.
+
+\section{Matching and Exploration}
+The matching and exploration functionality helps users discover individuals with
+relevant or complementary skills.  The Explore Skills page uses a responsive
+3-column grid (3 columns on desktop, 2 on tablet, 1 on mobile) with search and
+category filtering.
+
+\section{Skill Swap Requests}
+Users can initiate skill swap requests with potential learning partners.  The
+swap system manages the relationship between users after requests are accepted.
+
+\section{Messaging}
+The messaging system provides conversations between users.  Conversations are
+represented through participants and messages, with support for attachments.
+
+\section{Learning Sessions}
+Learning sessions represent individual learning interactions within the skill
+exchange system.  Sessions can contain associated notes and reviews.
+
+\section{Reviews and Ratings}
+The review system allows users to provide feedback and ratings associated with
+their learning interactions.
+
+\section{Notifications}
+Notifications provide users with information about relevant application events.
+
+\section{Reporting}
+The application includes a reporting mechanism for reporting users or content
+where required.
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 7 — IMPLEMENTATION
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Implementation}
+
+\section{Database Schema Implementation}
+The original database schema entry point was incomplete and did not export the
+tables required by the existing service layer.  A complete Drizzle PostgreSQL
+schema was subsequently implemented based on the existing application
+requirements.
+
+The resulting schema exports all required database tables and supports the
+existing service-layer queries.
+
+\section{Drizzle Configuration}
+A dedicated Drizzle configuration file was created (\texttt{drizzle.config.ts}).
+The configuration points to \texttt{schema: "./src/db/schema.ts"} and uses
+PostgreSQL with the existing environment-based database connection.
+
+\section{Utility Functions}
+Two missing utility functions were implemented in \texttt{src/lib/utils.ts}:
+
+\subsection{generateToken}
+The \texttt{generateToken()} utility generates cryptographically secure random
+tokens used by authentication-related functionality.  The implementation avoids
+insecure pseudo-random generation methods such as \texttt{Math.random()}.
+
+\subsection{slugify}
+The \texttt{slugify()} utility converts text into URL-friendly slug values.
+It is used where the application requires normalised identifiers for categories
+and skills.
+
+\section{UI/UX Design Implementation}
+
+\subsection{Explore Categories --- Lucide React Icons}
+The \texttt{SkillCategories} component was updated to replace all emoji-based
+category icons with Lucide React icons.  A \texttt{categoryIcons} record maps
+each category slug to the appropriate icon component (e.g.\ \texttt{Monitor}
+for Web Development, \texttt{Smartphone} for Mobile Development, \texttt{Palette}
+for Graphic Design).  The icons render inside the existing coloured container
+elements, preserving the dark SkillSwap visual language.
+
+\subsection{Explore Skills --- 3-Column Grid}
+The Explore Skills page grid was adjusted from 4 columns to 3 columns on
+desktop.  The responsive breakpoints are:
+
+\begin{lstlisting}
+grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+\end{lstlisting}
+
+\noindent Desktop renders 3 columns, tablet 2 columns, and mobile 1 column.
+Card functionality, search, and filtering remain unchanged.
+
+\subsection{Navbar / Sidebar Overlap Fix}
+The root cause of the overlap was the sticky Navbar element having
+\texttt{left-0 right-0} (stretching to viewport width) and a redundant
+\texttt{lg:pl-64} padding.  The fix removed these properties, relying instead
+on the parent layout's existing \texttt{lg:pl-64} wrapper, which correctly
+offsets all content to the right of the fixed sidebar.
+
+\subsection{Global Learning Community Redesign}
+The \texttt{CommunityStats} component was redesigned from a single container
+with inline statistics to four individual stat cards:
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Active Learners} -- Users icon, 25,000+ count.
+  \item \textbf{Skills Exchanged} -- TrendingUp icon, 12,400+ count.
+  \item \textbf{Countries} -- Globe icon, 80+ count.
+  \item \textbf{Avg.\ Experience} -- Star icon, 4.9/5 count.
+\end{enumerate}
+
+\noindent Each card features an icon in a coloured circle, a large statistic
+number, a descriptive label, a sublabel, subtle borders, hover effects
+(\texttt{translate-y} and border highlight), and an accent top line on hover.
+The grid is responsive: 1 column on mobile, 2 on tablet, 4 on desktop.
+
+\subsection{Theme System (Dark / Light Mode)}
+A custom \texttt{ThemeProvider} was created at
+\texttt{src/components/theme/ThemeProvider.tsx}:
+
+\begin{itemize}[noitemsep]
+  \item Uses React Context to expose \texttt{theme} and \texttt{toggleTheme}.
+  \item Persists the user's preference in \texttt{localStorage}.
+  \item Applies the \texttt{dark} class to \texttt{document.documentElement} in
+        a \texttt{useEffect} hook (client-only), avoiding React hydration
+        warnings.
+  \item No inline \texttt{<script>} tags are rendered inside React components.
+\end{itemize}
+
+The root layout (\texttt{src/app/layout.tsx}) sets the default
+\texttt{className="dark"} on the \texttt{<html>} element so server and first
+client paint match.  Light-mode CSS overrides were added to
+\texttt{src/app/globals.css} using \texttt{html:not(.dark)} selectors,
+adjusting backgrounds, text colours, borders, glass effects, scrollbars, and
+skeleton animations.
+
+A Sun/Moon toggle button was added to the Navbar (desktop and mobile), allowing
+users to switch themes on all pages.
+
+\subsection{How It Works Page}
+The page at \texttt{src/app/how-it-works/page.tsx} was created as a standalone
+route.  It includes:
+
+\begin{itemize}[noitemsep]
+  \item The existing \texttt{Navbar} component rendered at the top.
+  \item A hero section with title, description, and CTAs.
+  \item Eight step cards in a 2-column grid with step numbers, Lucide icons,
+        titles, and descriptions.
+  \item A flow diagram and final CTA section.
+  \item Full dark/light mode support.
+\end{itemize}
+
+The Navbar conditionally hides the ``How It Works'' navigation item when
+\texttt{pathname === "/how-it-works"} using a \texttt{.filter()} on the public
+navigation links array.  This applies to both desktop and mobile menus.
+
+\subsection{Dark Mode Support Across Components}
+Dark mode classes were added to the following components to ensure consistent
+theme rendering:
+
+\begin{itemize}[noitemsep]
+  \item Layout: Navbar, DashboardSidebar, Footer, AppLayout, AuthLayout
+  \item Landing: HeroSection, SkillCategories, FeaturedMatches, HowItWorks,
+        CommunityStats, WhySkillSwap, Testimonials, CTASection
+  \item UI Primitives: Button, Input, Avatar, Badge, Card, Modal, EmptyState,
+        Skeleton, MatchRing, StarRating
+  \item Feature: SwapRequestModal, Explore page
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 8 — TESTING AND VERIFICATION
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Testing and Verification}
+
+\section{TypeScript Verification}
+The complete application was checked using:
+
+\begin{lstlisting}
+npx tsc --noEmit
+\end{lstlisting}
+
+The final result was: \textbf{0 TypeScript compilation errors}.
+
+\section{Database Verification}
+The PostgreSQL database was verified through the running Docker container.  The
+database connection was successfully established and the complete schema was
+deployed.  A total of 24 tables were verified.
+
+\section{Development Server Verification}
+The Next.js development server was successfully started and the application was
+available at \url{http://localhost:3000}.
+
+\section{Route Verification}
+The following application routes were successfully verified:
+
+\begin{longtable}{@{} l l @{}}
+\toprule
+\textbf{Route / Feature} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Route / Feature} & \textbf{Status} \\
+\midrule
+\endhead
+Landing Page (\texttt{/})             & PASS \\
+How It Works (\texttt{/how-it-works}) & PASS \\
+Signup                               & PASS \\
+Login                                & PASS \\
+Profile                              & PASS \\
+Skills                               & PASS \\
+Matches                              & PASS \\
+Explore (\texttt{/explore})           & PASS \\
+Swap Requests                        & PASS \\
+Messaging                            & PASS \\
+Sessions                             & PASS \\
+Reviews                              & PASS \\
+Notifications                        & PASS \\
+\bottomrule
+\end{longtable}
+
+\section{Runtime Verification}
+The application was tested through the running development server.  No database
+connection errors or runtime exceptions were detected during the final
+verification.
+
+\section{Hydration Verification}
+After implementing the UI/UX design updates, two React hydration/console issues
+were identified and resolved:
+
+\subsection{Explore Page Hydration Mismatch}
+The Explore Skills page used \texttt{Math.random()} inside the render function
+to display teacher counts and local counts on skill cards.  This produced
+different values on the server and client, triggering a hydration mismatch.  The
+fix replaced random values with deterministic values derived from the skill ID
+using \texttt{skill.id.charCodeAt()}.
+
+\subsection{Theme Script Warning}
+The original theme implementation placed an inline \texttt{<script>} tag inside
+the root layout's \texttt{<head>} to prevent flash-of-incorrect-theme.  React
+reported a console error because scripts inside React components are never
+executed during client-side rendering.  The fix removed the inline script and
+relied on the \texttt{<html>} element's default \texttt{className="dark"} for
+server/client match, with theme restoration handled exclusively in the
+\texttt{ThemeProvider}'s \texttt{useEffect} hook.
+
+\section{UI/UX Design Verification}
+All design-update requirements were verified:
+
+\begin{longtable}{@{} l l @{}}
+\toprule
+\textbf{Requirement} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Requirement} & \textbf{Status} \\
+\midrule
+\endhead
+Explore Categories icons (Lucide)            & PASS \\
+Explore Skills 3-column grid                 & PASS \\
+Navbar/sidebar overlap fix                   & PASS \\
+Global Learning Community stat cards         & PASS \\
+How It Works dedicated page                  & PASS \\
+Dark/light mode toggle                       & PASS \\
+Theme persistence (localStorage)             & PASS \\
+Hydration errors resolved                    & PASS \\
+Theme script warning resolved                & PASS \\
+Responsive layout (desktop/tablet/mobile)    & PASS \\
+No horizontal overflow                       & PASS \\
+Existing functionality preserved             & PASS \\
+\bottomrule
+\end{longtable}
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 9 — VERSION CONTROL AND PROJECT DELIVERY
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Version Control and Project Delivery}
+
+\section{Git Integration}
+The completed application was maintained using Git version control.  The final
+codebase was committed after successful compilation, database deployment, and
+runtime verification.
+
+\section{GitHub Repository}
+The completed project was successfully pushed to the project's GitHub
+repository.  Sensitive local configuration, including the \texttt{.env} file
+containing database credentials, was kept outside the committed source code.
+
+\section{Final Project State}
+The final project state can be summarised as follows:
+
+\begin{itemize}[noitemsep]
+  \item Database successfully deployed.
+  \item Application successfully compiled.
+  \item Development server successfully started.
+  \item Core application routes successfully verified.
+  \item Database connectivity successfully verified.
+  \item UI/UX design updates implemented and verified.
+  \item Dark/light mode functional with persistent preference.
+  \item Project successfully committed to Git.
+  \item Project successfully pushed to GitHub.
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 10 — CHALLENGES AND SOLUTIONS
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Challenges and Solutions}
+
+\section{Missing Database Schema}
+One of the major technical issues encountered during development was that the
+database schema entry point did not contain the table definitions required by
+the existing service layer.
+
+\subsection{Solution}
+The required schema was derived from the existing application service
+implementations and database usage.  The missing Drizzle table definitions were
+implemented without modifying the existing service business logic.
+
+\section{Missing Database Configuration}
+The project initially did not contain the required TypeScript Drizzle
+configuration file.
+
+\subsection{Solution}
+A \texttt{drizzle.config.ts} configuration was created using the PostgreSQL
+dialect and the existing environment-based \texttt{DATABASE\_URL}.
+
+\section{Missing Utility Functions}
+Existing services imported \texttt{generateToken} and \texttt{slugify} from the
+utility module, but these functions were not initially available.
+
+\subsection{Solution}
+Both utility functions were implemented according to their existing callers.
+Secure cryptographic randomness was used for token generation.
+
+\section{Database Environment Configuration}
+The development environment required PostgreSQL connectivity.  PostgreSQL was
+already available through Docker, allowing the application to connect to the
+\texttt{skillswap} database through localhost port 5432.
+
+\section{Emoji-Based Category Icons}
+The original Explore Categories section used emoji characters as category
+icons, which did not meet production-ready UI standards.
+
+\subsection{Solution}
+All emoji characters were replaced with Lucide React icon components.  A
+mapping record associates each category slug with the appropriate icon
+component, ensuring consistent rendering across the application.
+
+\section{Navbar / Sidebar Overlap}
+The sticky Navbar element stretched across the full viewport width due to
+\texttt{left-0 right-0} positioning, causing it to overlap the fixed sidebar.
+
+\subsection{Solution}
+The redundant \texttt{left-0 right-0} and \texttt{lg:pl-64} were removed from
+the Navbar.  The parent layout's existing padding-left wrapper handles the
+offset correctly.
+
+\section{React Hydration Mismatch}
+The Explore Skills page rendered different random values on the server and
+client, causing a React hydration mismatch error.
+
+\subsection{Solution}
+All \texttt{Math.random()} calls in render were replaced with deterministic
+values derived from the skill's unique identifier, ensuring identical server and
+client output.
+
+\section{Theme Script Console Error}
+An inline \texttt{<script>} tag placed inside the React-rendered root layout
+triggered a console warning about scripts inside React components.
+
+\subsection{Solution}
+The inline script was removed.  The default \texttt{dark} class on the
+\texttt{<html>} element ensures server/client paint match, and theme
+restoration from \texttt{localStorage} is handled in the \texttt{ThemeProvider}'s
+client-side \texttt{useEffect} hook.
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 11 — FINAL RESULTS
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Final Results}
+
+The SkillSwap application successfully reached a stable and demonstrable state.
+The final verification produced the following results:
+
+\begin{longtable}{@{} l l @{}}
+\toprule
+\textbf{Verification Item} & \textbf{Result} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Verification Item} & \textbf{Result} \\
+\midrule
+\endhead
+Database Schema                & PASS \\
+Database Deployment            & PASS \\
+PostgreSQL Connection          & PASS \\
+TypeScript Compilation         & 0 Errors \\
+Next.js Development Server     & PASS \\
+Landing Page                   & PASS \\
+How It Works Page              & PASS \\
+Authentication Routes          & PASS \\
+Profile Functionality          & PASS \\
+Skills Functionality           & PASS \\
+Matching Functionality         & PASS \\
+Explore Page                   & PASS \\
+Swap Functionality             & PASS \\
+Messaging Functionality        & PASS \\
+Session Functionality          & PASS \\
+Review Functionality           & PASS \\
+Notification Functionality     & PASS \\
+Dark/Light Mode                & PASS \\
+Explore Categories Icons       & PASS \\
+Explore Skills Grid            & PASS \\
+Navbar/Sidebar Layout          & PASS \\
+Community Statistics Cards     & PASS \\
+Responsive Design              & PASS \\
+Hydration Error                & Resolved \\
+Theme Script Error             & Resolved \\
+Git Commit                     & PASS \\
+GitHub Push                    & PASS \\
+\bottomrule
+\end{longtable}
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 12 — CONCLUSION
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Conclusion}
+
+The SkillSwap project was successfully completed as a functional web-based
+skill exchange platform.
+
+The completed implementation combines a modern Next.js frontend with a
+TypeScript service architecture and PostgreSQL database powered by Drizzle ORM.
+The system provides the major functionality required for a skill exchange
+platform, including user management, profiles, skills, matching, swap requests,
+messaging, learning sessions, reviews, and notifications.
+
+A complete relational database containing 24 tables was implemented and
+successfully deployed to PostgreSQL.  Missing utility functionality and Drizzle
+configuration were also completed without changing the existing application
+business logic.
+
+Following core functionality completion, a comprehensive UI/UX design update
+was performed.  This update introduced Lucide React icons for category
+browsing, a responsive 3-column skills grid, a redesigned Global Learning
+Community section with individual statistic cards, a dedicated ``How It Works''
+page with step-by-step guidance, and a fully functional dark/light mode toggle
+with persistent theme preference.  All layout issues, including the
+navbar--sidebar overlap, were resolved, and React hydration and console errors
+were identified and fixed.
+
+The final application successfully passed TypeScript compilation with zero
+errors and was verified through the running Next.js development server.  Core
+application routes were tested successfully, and no runtime or database
+connection errors were detected during final verification.
+
+Finally, the completed project was committed and pushed to GitHub, providing a
+version-controlled copy of the final implementation.
+
+Therefore, the SkillSwap project achieved its primary development objectives and
+reached a stable state suitable for demonstration and further development.
+
+% ══════════════════════════════════════════════════════════════════════
+%  CHAPTER 13 — FUTURE ENHANCEMENTS
+% ══════════════════════════════════════════════════════════════════════
+\chapter{Future Enhancements}
+
+Although the current implementation is functional and ready for demonstration,
+several enhancements could be considered for future development:
+
+\begin{itemize}[noitemsep]
+  \item Production deployment to a cloud hosting platform.
+  \item Integration with a managed PostgreSQL service.
+  \item Real-time messaging using WebSockets.
+  \item Enhanced matching algorithms.
+  \item Email notification integration.
+  \item Profile verification mechanisms.
+  \item Advanced search and filtering.
+  \item Calendar integration for learning sessions.
+  \item File storage through cloud object storage.
+  \item Administrative dashboards and moderation tools.
+  \item Automated unit and integration testing.
+  \item Production monitoring and logging.
+  \item Progressive Web App (PWA) support.
+  \item Internationalisation and multi-language support.
+  \item Video-calling integration for remote learning sessions.
+\end{itemize}
+
+% ══════════════════════════════════════════════════════════════════════
+%  APPENDIX A — FINAL PROJECT COMMANDS
+% ══════════════════════════════════════════════════════════════════════
+\chapter*{Appendix A --- Final Project Commands}
+\addcontentsline{toc}{chapter}{Appendix A --- Final Project Commands}
+
+The following commands were used during the final project verification process.
+
+\section{TypeScript Verification}
+\begin{lstlisting}
+npx tsc --noEmit
+\end{lstlisting}
+Expected final result: \textbf{0 errors}.
+
+\section{Development Server}
+\begin{lstlisting}
+npm run dev
+\end{lstlisting}
+Application URL: \url{http://localhost:3000}
+
+\section{Database Schema Deployment}
+The database schema was deployed using:
+\begin{lstlisting}
+npx drizzle-kit push
+\end{lstlisting}
+
+\section{Version Control}
+The completed project was committed and pushed to GitHub using Git version
+control.
+\begin{lstlisting}
+git add -A
+git commit -m "..."
+git push origin main
+\end{lstlisting}
+
+\end{document}
